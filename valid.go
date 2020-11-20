@@ -4,11 +4,30 @@ import (
 	"fmt"
 )
 
-func validar(cadena string) bool {
-
+func validar(str string) bool {
+	var pila string
+	for i := range str {
+		if str[i:i+1] == "(" {
+			pila += "("
+		}
+		if str[i:i+1] == ")" {
+			if len(pila) > 0 {
+				pila = pila[:len(pila)-1]
+				continue
+			} else {
+				return false
+			}
+		}
+	}
+	if len(pila)>0 {
+		return false
+	}
+	return true
 }
 
 func main() {
-	cadena := "(())((()())())"
-	fmt.Println(validar(cadena))
+	fmt.Println(validar("()"))
+	fmt.Println(validar(")(()))"))
+	fmt.Println(validar("("))
+	fmt.Println(validar("(())((()())())"))
 }
